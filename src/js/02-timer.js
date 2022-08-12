@@ -14,6 +14,7 @@ const input = document.querySelector("#datatime-picker");
 refs.btnStart.setAttribute("disabled", "disabled");
 let intervalId = null;
 let targetTime = null;
+
 const options = {
     enableTime: true,
     time_24hr: true,
@@ -27,24 +28,27 @@ const options = {
             Notify.warning("Please choose a date in the future");
             refs.btnStart.setAttribute("disabled", "disabled");
         } else refs.btnStart.removeAttribute("disabled");
-    //refs.input.disabled = false;
+    //input.disabled = false;
     }
 };
-refs.btnStart.addEventListener("click", onBtnStartClick);
+refs.btnStart.addEventListener("click", onBtnStartClick );
 function onBtnStartClick() {
     refs.btnStart.setAttribute("disabled", "disabled");
-    // input.disabled = true;
+    input.setAttribute("disabled", "disabled");
+   
     const futureTime = targetTime.getTime();
     intervalId = setInterval(()=>{
         const currentTime = Date.now();
         const delta = futureTime - currentTime;
         convertMs(delta);
-        if (delta <= 0) {
+        if (delta <= 1000) {
             clearInterval(intervalId);
             refs.btnStart.removeAttribute("disabled");
+            input.removeAttribute("disabled");
             return;
         }
     }, 1000);
+    
 }
 flatpickr("#datetime-picker", options);
 function addZero(value) {
@@ -68,10 +72,10 @@ function convertMs(ms) {
     refs.hours.textContent = hours;
     refs.mins.textContent = minutes;
     refs.secs.textContent = seconds;
-    return {
-        days,
-        hours,
-        minutes,
-        seconds
-    };
+    // return {
+    //     days,
+    //     hours,
+    //     minutes,
+    //     seconds
+    // };
 }
