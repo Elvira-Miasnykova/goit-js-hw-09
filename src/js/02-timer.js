@@ -10,7 +10,7 @@ const refs = {
     mins: document.querySelector("[data-minutes]"),
     secs: document.querySelector("[data-seconds]")
 };
-const input = document.querySelector("#datatime-picker");
+const input = document.querySelector("#datetime-picker");
 refs.btnStart.setAttribute("disabled", "disabled");
 let intervalId = null;
 let targetTime = null;
